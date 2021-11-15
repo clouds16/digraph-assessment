@@ -1,0 +1,19 @@
+{
+  "name": "davette-bryan-takehome",
+  "version": "0.0.0",
+  "description": "1. Users want the ability to create a custom data processor using a drag-and-drop style interface.\r 1. Users to be able to create, read, update, and delete these user-created \"workflows\".",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Studylog-public/davette-bryan-takehome.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/Studylog-public/davette-bryan-takehome/issues"
+  },
+  "homepage": "https://github.com/Studylog-public/davette-bryan-takehome#readme"
+}
