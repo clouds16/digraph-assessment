@@ -2,7 +2,7 @@
 
 ## Problem Statement
 1. Users want the ability to create a custom data processor using a drag-and-drop style interface.
-1. Users to be able to create, read, update, and delete these user-created "workflows".
+1. Users want to be able to create, read, update, and delete these user-created "workflows".
 
 ## Requirements
 1. Backend API uses a well established open-source framework. (Express, Next.js, etc)
@@ -27,15 +27,19 @@
 * If a link line is part of a circular reference, change its color to red.
 
 ## What we're looking for
+
+Please work on this project as your comfort and schedule permits.
+We ask that you spend ~ 3 hours, but understand if you spend more or less.
+
 * Architecture. (is this application structurally sound?)
 * Best practices. (are industry best practices observed?)
 * Experience. (does this reflect a strong understanding of the language/concepts?)
 * Elegance. (is this concept as simple as it could/should be?)
 * Readability. (is the code easy to reason about?)
 * Cleanliness. (how does this codebase ensure appropriate styles? conventions?)
-* Unit testing. (are tests functional? do they focus on the right things?)
+* Testability. (are tests functional? do they focus on the right things?)
 * Portability. (does the code have meaningful abstractions, componentization?)
 
 ## Submission
 * When you have completed the challenge, please send an email letting us know.
-* Please update this README file with instructions for running your application.
+* Please update this `README.md` file with instructions for running your application.
