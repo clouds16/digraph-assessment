@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Studylog-public/davette-bryan-takehome/issues"
   },
-  "homepage": "https://github.com/Studylog-public/davette-bryan-takehome#readme"
+  "homepage": "https://github.com/Studylog-public/davette-bryan-takehome#readme",
+  "dependencies": {
+    "nodemon": "^2.0.15"
+  }
 }
