@@ -9,11 +9,11 @@ function GetGraphs(){
 
     useEffect( ()=> {
         try {
-            let req = Axios.get('localhost:3000/read')
+            let req = Axios.get('http://localhost:3000/read')
             setData( ...data, req.data)
-        } catch {
+        } catch(e) {
             alert('Could not download data')
-            return (<> </>)
+            console.log(e)
         }
 
     }, [])

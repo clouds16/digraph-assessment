@@ -5,10 +5,13 @@ const Workflow = mongoose.model('Workflow', new mongoose.Schema({
         required : true, 
         type: String
     },
-    connections : {
-        required : false, 
-        type: []
+    nodes : {
+       
         
+    },
+    edges : {
+        
+       
     }
    
 } , { timestamps: true } ));

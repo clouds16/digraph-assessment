@@ -5,8 +5,17 @@ var router = express.Router();
 let Workflow = require("../database/models/workflow")
 
 /* GET home page. */
-router.post('/create', function(req, res, next) {
-  res.render('index', { title: 'Create' });
+router.post('/create', async function(req, res, next) {
+    let data = req.body 
+    console.log(data)
+
+    try {
+      let workflow = await new Workflow(data)
+      res.send(workflow)
+      
+    } catch (e) {
+      res.send(e)
+    }
 });
 
 module.exports = router;

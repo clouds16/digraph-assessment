@@ -4,7 +4,12 @@ import Axios from 'axios'
 function RemoveButton( {uniqueID , data} ) {
     
     function onButtonPress(){
-        Axios.delete('localhost:3000/delete' , {uniqueID})
+        try {
+            Axios.delete('http://localhost:3000/delete' , {uniqueID})
+        }
+        catch {
+            alert('could not access data')
+        }
     }
 
     return (

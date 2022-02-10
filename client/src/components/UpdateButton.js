@@ -5,7 +5,7 @@ function UpdateButton( {uniqueID , data} ){
     
     function onButtonPress(){
         try {
-            Axios.put('localhost:3000/update' , {uniqueID , data})
+            Axios.put('http://localhost:3000/update' , {uniqueID , data})
         }
         catch {
             alert('Could not delete item')

@@ -1,10 +1,11 @@
 require('dotenv').config()
+var express = require('express');
 var cors = require('cors')
 var createError = require('http-errors');
-var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const PORT = 3000 || process.env.PORT;
 
 //database
 require('./database/mongoconnect.js')
@@ -56,4 +57,9 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+// module.exports = app;
+
+app.listen(PORT, function(err){
+  if (err) console.log("Error in server setup")
+  console.log("Server listening on Port", PORT);
+})
