@@ -28,11 +28,7 @@ class Graph extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   getServerMonitoring().then(response =>
-  //     this.setState({ graph: getUpdatedData(response) })
-  //   );
-  // }
+
 
   getNodeIndex(searchNode) {
     return this.state.graph.nodes.findIndex(node => {
