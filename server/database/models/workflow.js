@@ -7,11 +7,9 @@ const Workflow = mongoose.model('Workflow', new mongoose.Schema({
     },
     nodes : {
        
-        
     },
     edges : {
         
-       
     }
    
 } , { timestamps: true } ));

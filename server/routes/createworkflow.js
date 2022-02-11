@@ -6,11 +6,11 @@ let Workflow = require("../database/models/workflow")
 
 /* GET home page. */
 router.post('/create', async function(req, res, next) {
-    let data = req.body 
-    console.log(data)
+    let data = req.body
+    let workflow = new Workflow(data)
 
     try {
-      let workflow = await new Workflow(data)
+      workflow.save()
       res.send(workflow)
       
     } catch (e) {

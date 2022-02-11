@@ -6,7 +6,16 @@ let Workflow = require("../database/models/workflow")
 
 //delete workflow page
 router.delete('/delete', function(req, res, next) {
-  res.render('index', { title: 'Delete' });
+  let data = req.body ;
+
+
+  try {
+    Workflow.findByIdAndDelete( data._id )
+
+  } catch (e) {
+    res.send(e)
+  }
+  //res.render('index', { title: 'Delete' });
 });
 
 module.exports = router;
