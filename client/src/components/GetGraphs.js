@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react'
 import Axios from 'axios'
 import RemoveButton from './RemoveButton'
 import UpdateButton from './UpdateButton'
+import LoadButton from './LoadButton'
 
 function GetGraphs(){
 
@@ -27,10 +28,11 @@ function GetGraphs(){
             {   data? 
                 data.map((item) => {
                     return (
-                        <div>
+                        <div className=" bg-orange-300 p-3 m-1">
                             <h1> {item.name} </h1>
-                            <RemoveButton />
-                            <UpdateButton />
+                            <LoadButton data={item}/>
+                            <RemoveButton data={item} />
+                            <UpdateButton data={item} />
                         </div>
                     )
                 } ) : <> <p> No data selected </p></>

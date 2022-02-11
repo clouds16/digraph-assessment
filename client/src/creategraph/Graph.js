@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import { GraphView } from "react-digraph";
-//import { sample, getServerMonitoring, getUpdatedData } from "./sample";
+import { sample, getServerMonitoring, getUpdatedData } from "./sample";
 import {
   default as nodeConfig,
   CUSTOM_EMPTY_TYPE,
@@ -20,7 +20,9 @@ class Graph extends Component {
     super(props);
     this.customNodeRef = React.createRef();
     this.state = {
-      graph:  {
+       graph:  
+//               sample,
+              {
                 nodes: [],
                 edges: []
               },
