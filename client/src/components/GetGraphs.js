@@ -8,13 +8,17 @@ function GetGraphs(){
     let [data , setData] = useState([])
 
     useEffect( ()=> {
-        try {
-            let req = Axios.get('http://localhost:3000/read')
-            setData( ...data, req.data)
-        } catch(e) {
-            alert('Could not download data')
-            console.log(e)
-        }
+      
+        Axios.get('http://localhost:3100/read').then( (response)=> {
+            console.log(response.data)
+            setData(...data , response.data )
+
+        } ).catch( (e)=> {
+            alert('could not load data')
+        } )
+
+        console.log(data)
+  
 
     }, [])
 

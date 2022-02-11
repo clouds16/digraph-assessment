@@ -14,7 +14,7 @@ function UpdateButton( {uniqueID , data} ){
 
     return (
         <>
-            <button onClick={onButtonPress}> Update </button>
+            <button className="m-2 p-2 border-black border-1 bg-white" onClick={onButtonPress}> Update </button>
         </>
     )
 }
