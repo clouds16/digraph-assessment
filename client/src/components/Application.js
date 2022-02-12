@@ -18,7 +18,7 @@ function Application(props) {
             <div>
               <GetGraphs />
               <div>
-                current data 
+                current data {myContext.CURRENTWORKFLOW.name}
               </div>
             </div>
           </div>

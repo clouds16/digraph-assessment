@@ -17,7 +17,7 @@ function LoadWorkflow( props ){
 
     return (
         <>
-            <button className="m-2 p-2 border-black border-1 bg-green-200" onClick={LoadButtonPressed} > Load </button>
+            <button className="m-2 p-2 border-black border-1 bg-green-200 hover:scale-125 " onClick={LoadButtonPressed} > Load </button>
         </>
     )
 }
