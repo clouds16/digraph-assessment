@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import ReactDOM from "react-dom";
 import { GraphView } from "react-digraph";
 import { sample, getServerMonitoring, getUpdatedData } from "./sample";
@@ -15,17 +15,18 @@ import {
 } from "./config";
 import "./styles.css";
 
+import AppContext from '../store/AppContext'
+
+
 class Graph extends Component {
   constructor(props) {
     super(props);
     this.customNodeRef = React.createRef();
+//    this.myContext = useContext(AppContext)
     this.state = {
        graph:  
 //               sample,
-              {
-                nodes: [],
-                edges: []
-              },
+              props.graphData,
       selected: {}
     };
   }

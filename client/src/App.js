@@ -2,29 +2,31 @@ import logo from './logo.svg';
 import './App.css';
 
 //import Graph from './graph/Graph'
-import GetGraphs from './components/GetGraphs'
-import Graph from './creategraph/Graph'
+
 import AppContext from './store/AppContext'
+import {useState , useEffect, useContext} from 'react'
+import Application from './components/Application'
 
 function App() {
-  
-  const myContext =  useContext(AppContext);
+
+  //let [backEnd , setBackEnd] = useState('http://localhost:3100/')
+  let [currentWorkflow , setCurrentWorkflow] = useState({
+    name : "",
+    nodes : [],
+    edges : []
+    })
+
+  let Store = {
+    CURRENTWORKFLOW : currentWorkflow ,
+    SETCURRENTWORKFLOW : setCurrentWorkflow
+  }
 
 
   return (
-    <div className="App">
-    <h1> Graph Application </h1>
-    <div className="w-screen h-screen flex flex-row justify-center place-items-center bg-red-100"> 
-      <Graph graphData = {myContext.CURRENTWORKFLOW} />
-      
-      <div className="flex flex-col place-items-start justify-start">
-        <button className="m-2 p-2 border-black bg-white"> Add new Workflow </button>
-        <div>
-          <GetGraphs />
-        </div>
-      </div>
-    </div>
-  </div>
+    <AppContext.Provider value={Store}>    
+        <Application />
+    </AppContext.Provider>
+
   );
 }
 

@@ -1,11 +1,16 @@
 import React, {useEffect, useState} from 'react'
 import Axios from 'axios'
 
-function RemoveButton( {uniqueID , data} ) {
+function RemoveButton( {data} ) {
     
     function onButtonPress(){
         try {
-            Axios.delete('http://localhost:3000/delete' , {uniqueID})
+            alert("Are you sure you want to delete this data?")
+            Axios.delete('http://localhost:3100/delete' , {
+                data: {
+                    _id : data._id
+                  }
+            })
         }
         catch {
             alert('could not access data')

@@ -30,6 +30,7 @@ function GetGraphs(){
                     return (
                         <div className=" bg-orange-300 p-3 m-1">
                             <h1> {item.name} </h1>
+                            <h1> {item._id} </h1>
                             <LoadButton data={item}/>
                             <RemoveButton data={item} />
                             <UpdateButton data={item} />
