@@ -18,9 +18,11 @@ function GetGraphs(){
 
 
     useEffect( ()=> {
+        newData()
+
         setInterval(() => {
             newData()
-        }, 500 );
+        }, 1000 );
         
         
     }, [])

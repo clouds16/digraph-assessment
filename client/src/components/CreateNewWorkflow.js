@@ -12,8 +12,13 @@ function CreaetNew( props ){
     })
 
     function createNew(){
-        myContext.SETCURRENTWORKFLOW(newWorkflow)
-        console.log(myContext.CURRENTWORKFLOW)
+                
+        let createName = prompt('Add workflow name: ');
+
+        myContext.SETCURRENTWORKFLOW( prevState => ({
+            ...prevState , name : createName
+        })) 
+
     }
 
     return (

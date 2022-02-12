@@ -8,20 +8,9 @@ function SaveWorkflow( props ){
 
     function createNew(){
 
-        
-        let createName = prompt('Add workflow name: ');
-
-        myContext.SETCURRENTWORKFLOW( prevState => ({
-            ...prevState , name : createName
-        })) 
-        
-
 
         try{
-            
-            Axios.post('http://localhost:3100/create', myContext)
-            console.log(myContext.CURRENTWORKFLOW)
-            console.log("Success")
+            let req = Axios.post('http://localhost:3100/create', myContext.CURRENTWORKFLOW)
 
         } catch (e){
             alert("Could not save data")
