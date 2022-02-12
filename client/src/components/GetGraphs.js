@@ -5,22 +5,24 @@ import UpdateButton from './UpdateButton'
 import LoadButton from './LoadButton'
 
 function GetGraphs(){
-
     let [data , setData] = useState([])
 
-    useEffect( ()=> {
-      
+    function newData(){
         Axios.get('http://localhost:3100/read').then( (response)=> {
-            console.log(response.data)
             setData(...data , response.data )
-
         } ).catch( (e)=> {
-            alert('could not load data')
+            console.log("Could not log data")
         } )
+   
+    }
 
-        console.log(data)
-  
 
+    useEffect( ()=> {
+        setInterval(() => {
+            newData()
+        }, 500 );
+        
+        
     }, [])
 
     return(

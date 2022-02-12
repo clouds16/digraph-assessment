@@ -2,6 +2,8 @@ import React, {useState, useEffect , useContext} from 'react'
 import AppContext from '../store/AppContext'
 import GetGraphs from '../components/GetGraphs'
 import Graph from '../creategraph/Graph'
+import SaveWorkflow from './SaveWorkflow'
+import CreateNewWorkflow from  './CreateNewWorkflow'
 
 function Application(props) {
 
@@ -14,7 +16,8 @@ function Application(props) {
           <Graph graphData = {myContext.CURRENTWORKFLOW} />
           
           <div className="flex flex-col place-items-start justify-start">
-            <button className="m-2 p-2 border-black bg-white"> Add new Workflow </button>
+            <CreateNewWorkflow /> 
+            <SaveWorkflow />
             <div>
               <GetGraphs />
               <div>

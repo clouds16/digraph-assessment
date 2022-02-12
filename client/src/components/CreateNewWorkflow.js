@@ -1,11 +1,19 @@
-import React, {useState, useEffect} from 'react'
-import AppContext from './store/AppContext'
+import React, {useState, useEffect, useContext} from 'react'
+import AppContext from '../store/AppContext'
 
 
-function LoadWorkflow( props ){
+function CreaetNew( props ){
+
+    let myContext = useContext(AppContext);
+    let [newWorkflow , setNewWorkflow] = useState({
+        name: "",
+        nodes : [],
+        edges : []
+    })
 
     function createNew(){
-        console.log('create new workflow button pressed')
+        myContext.SETCURRENTWORKFLOW(newWorkflow)
+        console.log(myContext.CURRENTWORKFLOW)
     }
 
     return (
@@ -15,4 +23,4 @@ function LoadWorkflow( props ){
     )
 }
 
-export default LoadWorkflow;
+export default CreaetNew;

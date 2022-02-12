@@ -5,13 +5,13 @@ var router = express.Router();
 let Workflow = require("../database/models/workflow")
 
 //delete workflow page
-router.delete('/delete', function(req, res, next) {
+router.delete('/delete', async function(req, res, next) {
   let data = req.body ;
   console.log(data)
 
   try {
-    Workflow.findByIdAndDelete(data._id)
-    res.send(Workflow.find({}))
+    await Workflow.findByIdAndRemove({ _id : data._id})
+    req.send(data)
 
   } catch (e) {
     res.send(e)
