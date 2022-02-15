@@ -10,9 +10,9 @@ function LoadWorkflow( props ){
 
     function LoadButtonPressed(){
         console.log("props data: ",  props.data)
-        console.log("current workflow loaded: ", currentWorkflow)
+
         myContext.SETCURRENTWORKFLOW(props.data)
-        console.log("new context data is now:", currentWorkflow)
+
     }   
 
     return (

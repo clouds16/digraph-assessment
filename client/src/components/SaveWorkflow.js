@@ -4,13 +4,13 @@ import Axios from  'axios'
 
 function SaveWorkflow( props ){
 
-    let myContext = useContext(AppContext);
+    //let myContext = useContext(AppContext);
 
     function createNew(){
 
 
         try{
-            let req = Axios.post('http://localhost:3100/create', myContext.CURRENTWORKFLOW)
+            let req = Axios.post('http://localhost:3100/create', props.data)
 
         } catch (e){
             alert("Could not save data")

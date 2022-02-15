@@ -2,6 +2,7 @@ import React, { Component, useContext } from "react";
 import ReactDOM from "react-dom";
 import { GraphView } from "react-digraph";
 import sample from "./sample";
+import SaveWorkflow from "../components/SaveWorkflow";
 
 import {
   default as nodeConfig,
@@ -81,19 +82,22 @@ class Graph extends Component {
   };
 
   onCreateNode = (type) => {
+    let p = prompt("Give this processor a name: ")
+
     console.log("Create new : ", type)
     const graph = this.state.graph;
     
 
     const viewNode = {
       id: Date.now(),
-      title: "",
+      title: p,
       type: type ,
-      x : 300,
-      y : 0
+      x : Math.random()* 200,
+      y : Math.random()*300
     };
 
     graph.nodes = [...graph.nodes, viewNode];
+    
     //this.setState({ graph });
   };
 
@@ -164,7 +168,10 @@ class Graph extends Component {
     this.setState({ graph, selected: null });
   };
 
-   
+
+
+
+
 
   render() {
     const { graph, selected } = this.state;
@@ -177,6 +184,9 @@ class Graph extends Component {
         <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> this.onCreateNode(SPECIAL_TYPE)}> Diamond </button> 
         <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> this.onCreateNode(EMPTY_EDGE_TYPE)}> Rectangle  </button>
         <button className='m-2 p-2 bg-white border-2 border-black' onClick={ () => this.onCreateEdge(selected, selected)} >  Edge  </button>
+       {/* <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> saveWorkflow } >  Save  </button>  */}
+        <SaveWorkflow data={graph} />
+
         <GraphView 
           showGraphControls={true}
           gridSize="100rem"
