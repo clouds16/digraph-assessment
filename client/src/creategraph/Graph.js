@@ -23,7 +23,7 @@ class Graph extends Component {
   constructor(props) {
     super(props);
     this.customNodeRef = React.createRef();
-//    this.myContext = useContext(AppContext)
+
     this.state = {
        graph:  
               sample,
@@ -97,6 +97,34 @@ class Graph extends Component {
     //this.setState({ graph });
   };
 
+
+  onCreateEdge = (sourceViewNode, targetViewNode) => {
+    const graph = this.state.graph;
+    // This is just an example - any sort of logic
+    // could be used here to determine edge type
+    const type =
+      sourceViewNode.type === SPECIAL_TYPE
+        ? SPECIAL_EDGE_TYPE
+        : EMPTY_EDGE_TYPE;
+
+    const viewEdge = {
+      source: sourceViewNode[NODE_KEY],
+      target: targetViewNode[NODE_KEY],
+      type
+    };
+
+    // Only add the edge when the source node is not the same as the target
+    if (viewEdge.source !== viewEdge.target) {
+      graph.edges = [...graph.edges, viewEdge];
+      this.setState({
+        graph,
+        selected: viewEdge
+      });
+    }
+  };
+
+
+
   onDeleteNode = (viewNode, nodeId, nodeArr) => {
     const graph = this.state.graph;
     // Delete any connected edges
@@ -143,11 +171,12 @@ class Graph extends Component {
 
     return (
       <div id="graph" className="w-4/6 h-4/6">
-        <button className='m-2 p-2 bg-white border-2 border-black' onClick={this.onCreateNode(EMPTY_EDGE_TYPE)}> Rectangle  </button>
-        <button className='m-2 p-2 bg-white border-2 border-black' onClick={this.onCreateNode(POLY_TYPE)} >  Circle </button>
-        <button className='m-2 p-2 bg-white border-2 border-black' onClick={this.onCreateNode(SKINNY_TYPE)}> Square </button>
-        <button className='m-2 p-2 bg-white border-2 border-black' onClick={this.onCreateNode(SPECIAL_TYPE)}> Hexagon </button>
 
+        <button className='m-2 p-2 bg-white border-2 border-black' onClick={ () => this.onCreateNode(POLY_TYPE)} >  Hexagon  </button>
+        <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> this.onCreateNode(SKINNY_TYPE)}> Square </button>
+        <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> this.onCreateNode(SPECIAL_TYPE)}> Diamond </button> 
+        <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> this.onCreateNode(EMPTY_EDGE_TYPE)}> Rectangle  </button>
+        <button className='m-2 p-2 bg-white border-2 border-black' onClick={ () => this.onCreateEdge(selected, selected)} >  Edge  </button>
         <GraphView 
           showGraphControls={true}
           gridSize="100rem"
@@ -176,3 +205,5 @@ class Graph extends Component {
 }
 
 export default Graph;
+
+
