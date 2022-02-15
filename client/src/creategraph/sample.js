@@ -1,107 +1,126 @@
 import {
-  DATABASE_TYPE,
-  TEXTTRACT_TYPE,
-  LAMBDA_TYPE,
-  SERVER_TYPE,
-  BROWSER_TYPE,
+  default as nodeConfig,
   EMPTY_EDGE_TYPE,
+  CUSTOM_EMPTY_TYPE,
+  POLY_TYPE,
+  SPECIAL_CHILD_SUBTYPE,
   SPECIAL_EDGE_TYPE,
-  SPECIAL_EDGE_TYPE_REVERSE,
-  LOGIN_TYPE
-} from "./config";
+  SPECIAL_TYPE,
+  SKINNY_TYPE
+} from "./config2";
 
-export const sample = {
+export default {
   edges: [
     {
-      handleText: "1",
-      source: "server",
-      target: "browser",
+      handleText: "5",
+      source: "start1",
+      target: "a1",
       type: SPECIAL_EDGE_TYPE
     },
-    {
-      handleText: "2",
-      source: "browser",
-      target: "database",
-      type: SPECIAL_EDGE_TYPE
-    },
-    {
-      handleText: "3",
-      source: "login",
-      target: "database",
-      type: SPECIAL_EDGE_TYPE_REVERSE
-    },
-    // {
-    //   handleText: "4",
-    //   source: "database",
-    //   target: "login",
-    //   type: EMPTY_EDGE_TYPE
-    // },
     {
       handleText: "5",
-      source: "browser",
-      target: "textract",
+      source: "a1",
+      target: "a2",
+      type: SPECIAL_EDGE_TYPE
+    },
+    {
+      handleText: "54",
+      source: "a2",
+      target: "a4",
       type: EMPTY_EDGE_TYPE
     },
     {
-      handleText: "6",
-      source: "textract",
-      target: "login",
+      handleText: "54",
+      source: "a1",
+      target: "a3",
       type: EMPTY_EDGE_TYPE
     },
     {
-      handleText: "7",
-      source: "browser",
-      target: "lambda",
+      handleText: "54",
+      source: "a3",
+      target: "a4",
       type: EMPTY_EDGE_TYPE
     },
     {
-      handleText: "8",
-      source: "login",
-      target: "browser",
+      handleText: "54",
+      source: "a1",
+      target: "a5",
+      type: EMPTY_EDGE_TYPE
+    },
+    {
+      handleText: "54",
+      source: "a4",
+      target: "a1",
+      type: EMPTY_EDGE_TYPE
+    },
+    {
+      handleText: "54",
+      source: "a1",
+      target: "a6",
+      type: EMPTY_EDGE_TYPE
+    },
+    {
+      handleText: "24",
+      source: "a1",
+      target: "a7",
       type: EMPTY_EDGE_TYPE
     }
   ],
   nodes: [
     {
-      id: "server",
-      title: "Server",
-      type: SERVER_TYPE
+      id: "start1",
+      title: "Start (0)",
+      type: SPECIAL_TYPE
     },
     {
-      id: "database",
-      title: "DB",
-      type: DATABASE_TYPE,
-      x: 600.5757598876953,
-      y: 600.81818389892578
-    },
-    {
-      id: "browser",
-      title: "Browser",
-      type: BROWSER_TYPE,
+      id: "a1",
+      title: "Node A (1)",
+      type: SPECIAL_TYPE,
       x: 258.3976135253906,
       y: 331.9783248901367
     },
     {
-      id: "textract",
-      title: "Texttract",
-      type: TEXTTRACT_TYPE,
+      id: "a2",
+      subtype: SPECIAL_CHILD_SUBTYPE,
+      title: "Node B (2)",
+      type: CUSTOM_EMPTY_TYPE,
+      x: 593.9393920898438,
+      y: 260.6060791015625
+    },
+    {
+      id: "a3",
+      title: "Node C (3)",
+      type: CUSTOM_EMPTY_TYPE,
       x: 237.5757598876953,
       y: 61.81818389892578
     },
     {
-      id: "lambda",
-      title: "Lambda",
-      type: LAMBDA_TYPE,
+      id: "a4",
+      title: "Node D (4)",
+      type: CUSTOM_EMPTY_TYPE,
+      x: 600.5757598876953,
+      y: 600.81818389892578
+    },
+    {
+      id: "a5",
+      title: "Node E (5)",
+      type: null,
       x: 50.5757598876953,
       y: 500.81818389892578
     },
     {
-      id: "login",
-      title: "Login",
-      type: LAMBDA_TYPE,
-      x: 550.5757598876953,
-      y: 100.81818389892578
+      id: "a6",
+      title: "Node E (6)",
+      type: SKINNY_TYPE,
+      x: 300,
+      y: 600
+    },
+    {
+      id: "a7",
+      title: "Node F (7)",
+      type: POLY_TYPE,
+      x: 0,
+      y: 300
     }
   ]
 };
-

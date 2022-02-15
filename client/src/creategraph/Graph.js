@@ -1,21 +1,22 @@
 import React, { Component, useContext } from "react";
 import ReactDOM from "react-dom";
 import { GraphView } from "react-digraph";
-import { sample, getServerMonitoring, getUpdatedData } from "./sample";
+import sample from "./sample";
+
 import {
   default as nodeConfig,
+  EMPTY_EDGE_TYPE,
   CUSTOM_EMPTY_TYPE,
-  NODE_KEY,
-  SERVER_TYPE, 
-  TEXTTRACT_TYPE,
-  DATABASE_TYPE,
-  BROWSER_TYPE,
-  LAMBDA_TYPE,
-  LOGIN_TYPE
-} from "./config";
+  POLY_TYPE,
+  SPECIAL_CHILD_SUBTYPE,
+  SPECIAL_EDGE_TYPE,
+  SPECIAL_TYPE,
+  SKINNY_TYPE, NODE_KEY
+} from "./config2";
+
 import "./styles.css";
 
-import AppContext from '../store/AppContext'
+
 
 
 class Graph extends Component {
@@ -25,8 +26,8 @@ class Graph extends Component {
 //    this.myContext = useContext(AppContext)
     this.state = {
        graph:  
-//               sample,
-              props.graphData,
+              sample,
+              //props.graphData,
       selected: {}
     };
   }
@@ -79,7 +80,8 @@ class Graph extends Component {
     this.setState({ selected: viewEdge });
   };
 
-  onCreateNode = (xpos, ypos , type) => {
+  onCreateNode = (type) => {
+    console.log("Create new : ", type)
     const graph = this.state.graph;
     
 
@@ -87,8 +89,8 @@ class Graph extends Component {
       id: Date.now(),
       title: "",
       type: type ,
-      x : xpos,
-      y : ypos 
+      x : 300,
+      y : 0
     };
 
     graph.nodes = [...graph.nodes, viewNode];
@@ -141,10 +143,10 @@ class Graph extends Component {
 
     return (
       <div id="graph" className="w-4/6 h-4/6">
-        <button className='m-2 p-2 bg-white border-2 border-black' onClick={this.onCreateNode(500, 200 ,SERVER_TYPE)}> Rectangle  </button>
-        <button className='m-2 p-2 bg-white border-2 border-black' onClick={this.onCreateNode(700, 200 ,BROWSER_TYPE)} >  Circle </button>
-        <button className='m-2 p-2 bg-white border-2 border-black' onClick={this.onCreateNode(900, 200 ,LAMBDA_TYPE)}> Square </button>
-        <button className='m-2 p-2 bg-white border-2 border-black' onClick={this.onCreateNode(500, 400, DATABASE_TYPE)}> Hexagon </button>
+        <button className='m-2 p-2 bg-white border-2 border-black' onClick={this.onCreateNode(EMPTY_EDGE_TYPE)}> Rectangle  </button>
+        <button className='m-2 p-2 bg-white border-2 border-black' onClick={this.onCreateNode(POLY_TYPE)} >  Circle </button>
+        <button className='m-2 p-2 bg-white border-2 border-black' onClick={this.onCreateNode(SKINNY_TYPE)}> Square </button>
+        <button className='m-2 p-2 bg-white border-2 border-black' onClick={this.onCreateNode(SPECIAL_TYPE)}> Hexagon </button>
 
         <GraphView 
           showGraphControls={true}
@@ -157,7 +159,7 @@ class Graph extends Component {
           edges={graph.edges}
           selected={selected}
           nodeTypes={nodeConfig.NodeTypes}
-          nodeSubtypes
+          nodeSubtypes={nodeConfig.NodeSubtypes}
           edgeTypes={nodeConfig.EdgeTypes}
           onSelectNode={this.onSelectNode}
           onCreateNode={this.onCreateNode}
