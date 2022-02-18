@@ -3,8 +3,7 @@ import AppContext from '../store/AppContext'
 
 
 function LoadWorkflow( props ){
-    //pass in object data props
-    //access global state to set current workflow - 
+
     const myContext =  useContext(AppContext);
     const currentWorkflow = myContext.CURRENTWORKFLOW ;
     let nodes = myContext.NODES;

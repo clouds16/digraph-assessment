@@ -1,4 +1,4 @@
-import {CUSTOM_EMPTY_TYPE, SPECIAL_TYPE , SPECIAL_EDGE_TYPE } from './config2'
+import {CUSTOM_EMPTY_TYPE, SPECIAL_TYPE , SPECIAL_EDGE_TYPE } from './config'
 
 export default {
     name : "",

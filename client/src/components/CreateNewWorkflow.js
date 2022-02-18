@@ -1,8 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react'
 import AppContext from '../store/AppContext'
 import defaultdata from '../creategraph/defaultdata'
-import sample from '../creategraph/sample'
-
 
 function CreaetNew( props ){
 

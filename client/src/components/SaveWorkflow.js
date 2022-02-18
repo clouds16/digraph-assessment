@@ -7,8 +7,7 @@ function SaveWorkflow({data} ){
     let myContext = useContext(AppContext);
     
     function saveState(){
-        // myContext.SETCURRENTWORKFLOW( data )
-        // console.log("saving current workflow: ", myContext.CURRENTWORKFLOW)
+
         let name = prompt("Give this workflow a name : ")
         data["name"] = name ;
     }

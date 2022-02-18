@@ -7,7 +7,7 @@ import {
   SPECIAL_EDGE_TYPE,
   SPECIAL_TYPE,
   SKINNY_TYPE
-} from "./config2";
+} from "./config";
 
 export default {
   edges: [

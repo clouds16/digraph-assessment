@@ -5,7 +5,6 @@ import AppContext from '../store/AppContext'
 function UpdateButton( { data} ){
     const myContext =  useContext(AppContext);
 
-
     function onButtonPress(){
         try {
             alert("About to update existing data")

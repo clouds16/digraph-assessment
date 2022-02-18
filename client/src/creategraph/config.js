@@ -1,13 +1,7 @@
-/*
-  Example config for GraphView component
-*/
+
 import React from "react";
 
 export const NODE_KEY = "id"; // Key used to identify nodes
-
-// These keys are arbitrary (but must match the config)
-// However, GraphView renders text differently for empty types
-// so this has to be passed in if that behavior is desired.
 export const EMPTY_TYPE = "empty";
 export const CUSTOM_EMPTY_TYPE = "customEmpty"; // Empty node type
 export const POLY_TYPE = "poly";

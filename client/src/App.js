@@ -1,12 +1,7 @@
-import logo from './logo.svg';
-import './App.css';
-
-//import Graph from './graph/Graph'
-
-import AppContext from './store/AppContext'
 import {useState , useEffect, useContext} from 'react'
+import AppContext from './store/AppContext'
 import Application from './components/Application'
-import {CUSTOM_EMPTY_TYPE, SPECIAL_TYPE , SPECIAL_EDGE_TYPE } from './creategraph/config2'
+import {CUSTOM_EMPTY_TYPE, SPECIAL_TYPE , SPECIAL_EDGE_TYPE } from './creategraph/config'
 import defaultData from './creategraph/defaultdata'
 
 function App() {

@@ -2,11 +2,8 @@ import React, { Component, useContext ,useState , useEffect } from "react";
 import ReactDOM from "react-dom";
 import { GraphView } from "react-digraph";
 import sample from "./sample";
-//import AutoSave from '../components/AutoSaveState'
 import SaveWorkflow from "../components/SaveWorkflow";
 import AppContext from '../store/AppContext'
-
-
 
 import {
   default as nodeConfig,
@@ -17,12 +14,11 @@ import {
   SPECIAL_EDGE_TYPE,
   SPECIAL_TYPE,
   SKINNY_TYPE, NODE_KEY
-} from "./config2";
+} from "./config";
 
 import "./styles.css";
 
 function FGraph( {graphData} ) {
-
 
 
 let myContext = useContext(AppContext)
@@ -119,10 +115,6 @@ function onUpdateNode(viewNode) {
 
 function onSelectNode(viewNode, event) {
   console.log("selected node: ", viewNode);
-  // console.log(viewNode);
-  // console.log(event);
-  // console.log(edges);
-  // Deselect events will send Null viewNode
   setSelected(viewNode);
 }
 
@@ -202,39 +194,6 @@ function onSwapEdge(sourceViewNode, targetViewNode, viewEdge) {
   }
 
   
-    // onCreateEdge = (sourceViewNode, targetViewNode) => {
-    //   //const graph = ;
-    //   // This is just an example - any sort of logic
-    //   // could be used here to determine edge type
-    //   console.log(selected)
-    //   const type = EMPTY_EDGE_TYPE
-
-    //   const viewEdge = {
-    //     source: sourceViewNode[NODE_KEY],
-    //     target: targetViewNode[NODE_KEY],
-    //     type,
-    //   };
-
-    //   // Only add the edge when the source node is not the same as the target
-    //   if (viewEdge.source !== viewEdge.target) {
-    //     graph.edges = [...graph.edges, viewEdge];
-    //     // setState({
-    //     //   graph,
-    //     //   selected: {
-    //     //     nodes: null,
-    //     //     edges: new Map([[`${viewEdge.source}_${viewEdge.target}`, viewEdge]]),
-    //     //   },
-    //     // });
-    //     setEdges({...graph.edges})
-    //     setNodes({...graph.nodes})
-    //     setSelected({
-    //         selected: {
-    //         nodes: null,
-    //         edges: new Map([[`${viewEdge.source}_${viewEdge.target}`, viewEdge]]),
-    //       }
-    //     })
-    //   }
-    // }
 
 
 
