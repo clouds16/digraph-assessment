@@ -7,11 +7,19 @@ function LoadWorkflow( props ){
     //access global state to set current workflow - 
     const myContext =  useContext(AppContext);
     const currentWorkflow = myContext.CURRENTWORKFLOW ;
+    let nodes = myContext.NODES;
+    let setNodes = myContext.SETNODES;
+    let edges = myContext.EDGES ;
+    let setEdges = myContext.SETEDGES;
 
     function LoadButtonPressed(){
         console.log("props data: ",  props.data)
 
         myContext.SETCURRENTWORKFLOW(props.data)
+
+        setNodes(props.data.nodes)
+        setEdges(props.data.edges)
+
 
     }   
 

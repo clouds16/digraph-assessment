@@ -21,7 +21,7 @@ import {
 
 import "./styles.css";
 
-function FGraph( {graphData}) {
+function FGraph( {graphData} ) {
 
 
 
@@ -30,10 +30,13 @@ let workflow = myContext.CURRENTWORKFLOW;
 let setWorkflow = myContext.SETCURRENTWORKFLOW
   //let workflow = graphData ;
 
+let nodes = myContext.NODES;
+let setNodes = myContext.SETNODES;
+let edges = myContext.EDGES ;
+let setEdges = myContext.SETEDGES;
 
-
-const [nodes, setNodes] = useState(workflow.nodes);
-const [edges, setEdges] = useState(workflow.edges);
+// const [nodes, setNodes] = useState(workflow.nodes);
+// const [edges, setEdges] = useState(workflow.edges);
 
 const [selected, setSelected] = useState(null);
 
@@ -58,6 +61,8 @@ function onCreateEdge(src, tgt) {
 
   setEdges((prev) => [...prev, newEdge]);
   //workflow.edges = [...workflow.edges, newEdge]
+  //setWorkflow({ ...edges, newEdge})
+  
 }
 
 function onCreateNode(nodeType) {
@@ -78,7 +83,8 @@ function onCreateNode(nodeType) {
   };
 
   setNodes((prev) => [...prev, viewNode]);
-  //workflow.nodes = [...workflow.nodes, viewNode]
+
+  //setWorkflow( {...nodes, nodes : viewNode})
 }
 
 function onCreateNodeClick(x, y) {
@@ -93,7 +99,7 @@ function onCreateNodeClick(x, y) {
   };
   console.log(viewNode);
   setNodes((prev) => [...prev, viewNode]);
-
+  //setWorkflow( {...nodes, nodes : viewNode})
 
 }
 
@@ -107,7 +113,8 @@ function onUpdateNode(viewNode) {
 
   var mycopy = nodes;
   mycopy[index] = viewNode;
-  setNodes(mycopy);
+  //setNodes(mycopy);
+  //setWorkflow( {[nodes] : mycopy} )
 }
 
 function onSelectNode(viewNode, event) {
@@ -233,11 +240,13 @@ function onSwapEdge(sourceViewNode, targetViewNode, viewEdge) {
 
   return (
     <div id="graph" className="w-4/6 h-4/6">
-
+    <h1> {workflow.name} </h1>
     <button className='m-2 p-2 bg-white border-2 border-black hover:bg-yellow-400' onClick={ () => onCreateNode(POLY_TYPE)} >  Hexagon  </button>
     <button className='m-2 p-2 bg-white border-2 border-black hover:bg-yellow-400' onClick={ ()=> onCreateNode(SKINNY_TYPE)}> Rectangle </button>
     <button className='m-2 p-2 bg-white border-2 border-black hover:bg-yellow-400' onClick={ ()=> onCreateNode(SPECIAL_TYPE)}> Diamond </button> 
     <button className='m-2 p-2 bg-white border-2 border-black hover:bg-blue-400' onClick={ ()=> onCreateEdge(nodes[0] , selected) }> Add Edge </button>
+
+    
     <SaveWorkflow  data={graph} />
     
     <GraphView 

@@ -3,17 +3,25 @@ import AppContext from '../store/AppContext'
 import defaultdata from '../creategraph/defaultdata'
 import sample from '../creategraph/sample'
 
+
 function CreaetNew( props ){
 
-    let myContext = useContext(AppContext);
+
+
+    const myContext =  useContext(AppContext);
+    const currentWorkflow = myContext.CURRENTWORKFLOW ;
+    let nodes = myContext.NODES;
+    let setNodes = myContext.SETNODES;
+    let edges = myContext.EDGES ;
+    let setEdges = myContext.SETEDGES;
+    
     
 
 
     function createNew(){
-                
-        let createName = prompt('Add workflow name: ');
-
-        myContext.SETCURRENTWORKFLOW( {...defaultdata , name : createName}) 
+        myContext.SETCURRENTWORKFLOW(defaultdata) 
+        setNodes(defaultdata.nodes);
+        setEdges(defaultdata.edges);
 
     }
 

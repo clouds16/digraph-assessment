@@ -13,10 +13,16 @@ function App() {
 
   //let [backEnd , setBackEnd] = useState('http://localhost:3100/')
   let [currentWorkflow , setCurrentWorkflow] = useState(defaultData)
+  let [nodes, setNodes] = useState(defaultData.nodes)
+  let [edges, setEdges] = useState(defaultData.edges)
 
   let Store = {
     CURRENTWORKFLOW : currentWorkflow ,
-    SETCURRENTWORKFLOW : setCurrentWorkflow
+    SETCURRENTWORKFLOW : setCurrentWorkflow  ,
+    NODES : nodes,
+    SETNODES : setNodes ,
+    EDGES : edges, 
+    SETEDGES : setEdges
   }
 
 
