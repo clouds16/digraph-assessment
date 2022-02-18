@@ -1,4 +1,4 @@
-import React, { Component, useContext ,useState } from "react";
+import React, { Component, useContext ,useState , useEffect } from "react";
 import ReactDOM from "react-dom";
 import { GraphView } from "react-digraph";
 import sample from "./sample";
@@ -23,15 +23,20 @@ import "./styles.css";
 
 function FGraph( {graphData}) {
 
-  let myContext = useContext(AppContext)
-  //let currentWorkflow = myContext.CURRENTWORKFLOW;
-  let currentWorkflow = graphData ;
+
+
+let myContext = useContext(AppContext)
+let workflow = myContext.CURRENTWORKFLOW;
+let setWorkflow = myContext.SETCURRENTWORKFLOW
+  //let workflow = graphData ;
 
 
 
-const [nodes, setNodes] = useState(currentWorkflow.nodes);
-const [edges, setEdges] = useState(currentWorkflow.edges);
+const [nodes, setNodes] = useState(workflow.nodes);
+const [edges, setEdges] = useState(workflow.edges);
+
 const [selected, setSelected] = useState(null);
+
 let graph = {
   nodes,
   edges,
@@ -52,6 +57,7 @@ function onCreateEdge(src, tgt) {
   };
 
   setEdges((prev) => [...prev, newEdge]);
+  //workflow.edges = [...workflow.edges, newEdge]
 }
 
 function onCreateNode(nodeType) {
@@ -72,6 +78,7 @@ function onCreateNode(nodeType) {
   };
 
   setNodes((prev) => [...prev, viewNode]);
+  //workflow.nodes = [...workflow.nodes, viewNode]
 }
 
 function onCreateNodeClick(x, y) {
@@ -86,11 +93,12 @@ function onCreateNodeClick(x, y) {
   };
   console.log(viewNode);
   setNodes((prev) => [...prev, viewNode]);
+
+
 }
 
 function onUpdateNode(viewNode) {
-  console.log("on update node");
-  console.log(viewNode);
+  console.log("on update node: " , viewNode);
   onSelectNode(viewNode);
   var i, index;
   for (i = 0; i < nodes.length; i++) {
@@ -103,10 +111,10 @@ function onUpdateNode(viewNode) {
 }
 
 function onSelectNode(viewNode, event) {
-  console.log("on select node");
-  console.log(viewNode);
-  console.log(event);
-  console.log(edges);
+  console.log("selected node: ", viewNode);
+  // console.log(viewNode);
+  // console.log(event);
+  // console.log(edges);
   // Deselect events will send Null viewNode
   setSelected(viewNode);
 }
@@ -267,7 +275,7 @@ export default FGraph;
   //let setGraph = myContext.SETCURRENTWORKFLOW
 
   let [graph, setGraph] = useState({
-    ...currentWorkflow ,
+    ...workflow ,
     //...props.graphData,
     selected : {}
   })
