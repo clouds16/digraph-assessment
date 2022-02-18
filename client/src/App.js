@@ -6,24 +6,13 @@ import './App.css';
 import AppContext from './store/AppContext'
 import {useState , useEffect, useContext} from 'react'
 import Application from './components/Application'
-import {CUSTOM_EMPTY_TYPE, SPECIAL_TYPE } from './creategraph/config2'
+import {CUSTOM_EMPTY_TYPE, SPECIAL_TYPE , SPECIAL_EDGE_TYPE } from './creategraph/config2'
+import defaultData from './creategraph/defaultdata'
 
 function App() {
 
   //let [backEnd , setBackEnd] = useState('http://localhost:3100/')
-  let [currentWorkflow , setCurrentWorkflow] = useState({
-    name : "",
-    nodes : [
-      {
-        id: "a1",
-        title: "Starting Node",
-        type: SPECIAL_TYPE,
-        x: 250,
-        y: 350
-      }
-    ],
-    edges : []
-    })
+  let [currentWorkflow , setCurrentWorkflow] = useState(defaultData)
 
   let Store = {
     CURRENTWORKFLOW : currentWorkflow ,

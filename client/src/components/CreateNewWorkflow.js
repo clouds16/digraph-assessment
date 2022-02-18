@@ -1,23 +1,19 @@
 import React, {useState, useEffect, useContext} from 'react'
 import AppContext from '../store/AppContext'
-
+import defaultdata from '../creategraph/defaultdata'
+import sample from '../creategraph/sample'
 
 function CreaetNew( props ){
 
     let myContext = useContext(AppContext);
-    let [newWorkflow , setNewWorkflow] = useState({
-        name: "",
-        nodes : [],
-        edges : []
-    })
+    
+
 
     function createNew(){
                 
         let createName = prompt('Add workflow name: ');
 
-        myContext.SETCURRENTWORKFLOW( prevState => ({
-            ...prevState , name : createName
-        })) 
+        myContext.SETCURRENTWORKFLOW( {...defaultdata , name : createName}) 
 
     }
 

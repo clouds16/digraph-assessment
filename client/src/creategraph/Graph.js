@@ -2,6 +2,7 @@ import React, { Component, useContext } from "react";
 import ReactDOM from "react-dom";
 import { GraphView } from "react-digraph";
 import sample from "./sample";
+//import AutoSave from '../components/AutoSaveState'
 import SaveWorkflow from "../components/SaveWorkflow";
 
 import {
@@ -18,21 +19,26 @@ import {
 import "./styles.css";
 
 
-
-
 class Graph extends Component {
   constructor(props) {
     super(props);
     this.customNodeRef = React.createRef();
 
     this.state = {
-       graph:  
-              sample,
-              //props.graphData,
+      //name: props.name,
+      graph:  
+              //sample,
+              props.graphData,
+              // {
+              //   nodes: props.nodes,
+              //   edges: props.edges,
+              //   name: props.name
+              // },
       selected: {}
     };
   }
 
+ // static getDerivedStateFromProps(props, state);
 
 
   getNodeIndex(searchNode) {
@@ -97,7 +103,7 @@ class Graph extends Component {
     };
 
     graph.nodes = [...graph.nodes, viewNode];
-    
+    console.log(this.state.graph)
     //this.setState({ graph });
   };
 
@@ -177,39 +183,48 @@ class Graph extends Component {
     const { graph, selected } = this.state;
 
     return (
-      <div id="graph" className="w-4/6 h-4/6">
+      <>
 
-        <button className='m-2 p-2 bg-white border-2 border-black' onClick={ () => this.onCreateNode(POLY_TYPE)} >  Hexagon  </button>
-        <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> this.onCreateNode(SKINNY_TYPE)}> Square </button>
-        <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> this.onCreateNode(SPECIAL_TYPE)}> Diamond </button> 
-        <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> this.onCreateNode(EMPTY_EDGE_TYPE)}> Rectangle  </button>
-        <button className='m-2 p-2 bg-white border-2 border-black' onClick={ () => this.onCreateEdge(selected, selected)} >  Edge  </button>
-       {/* <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> saveWorkflow } >  Save  </button>  */}
-        <SaveWorkflow data={graph} />
 
-        <GraphView 
-          showGraphControls={true}
-          gridSize="100rem"
-          gridDotSize={1}
-          renderNodeText={false}
-          ref="GraphView"
-          nodeKey={NODE_KEY}
-          nodes={graph.nodes}
-          edges={graph.edges}
-          selected={selected}
-          nodeTypes={nodeConfig.NodeTypes}
-          nodeSubtypes={nodeConfig.NodeSubtypes}
-          edgeTypes={nodeConfig.EdgeTypes}
-          onSelectNode={this.onSelectNode}
-          onCreateNode={this.onCreateNode}
-          onUpdateNode={this.onUpdateNode}
-          onDeleteNode={this.onDeleteNode}
-          onSelectEdge={this.onSelectEdge}
-          onSwapEdge={this.onSwapEdge}
-          onDeleteEdge={this.onDeleteEdge}
-          // readOnly
-        />
-      </div>
+        <div id="graph" className="w-4/6 h-4/6">
+        <div className=" text-2xl "> Workflow Name : {graph.name } </div>
+          <button className='m-2 p-2 bg-white border-2 border-black' onClick={ () => this.onCreateNode(POLY_TYPE)} >  Hexagon  </button>
+          <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> this.onCreateNode(SKINNY_TYPE)}> Square </button>
+          <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> this.onCreateNode(SPECIAL_TYPE)}> Diamond </button> 
+          <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> this.onCreateNode(EMPTY_EDGE_TYPE)}> Rectangle  </button>
+          <button className='m-2 p-2 bg-white border-2 border-black' onClick={ () => this.onCreateEdge(this.graph.nodes[0], this.graph.nodes[1])} >  Edge  </button>
+          {/* <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> saveWorkflow } >  Save  </button>  */}
+          {/* <AutoSave data={graph} /> */}
+
+          <SaveWorkflow data={graph} />
+          <button onClick={ ()=> this.forceUpdate()} > Check current state </button>
+
+          <GraphView 
+            showGraphControls={true}
+            gridSize="100rem"
+            gridDotSize={1}
+            renderNodeText={false}
+            ref="GraphView"
+            nodeKey={NODE_KEY}
+            nodes={graph.nodes}
+            edges={graph.edges}
+            selected={selected}
+            nodeTypes={nodeConfig.NodeTypes}
+            nodeSubtypes={nodeConfig.NodeSubtypes}
+            edgeTypes={nodeConfig.EdgeTypes}
+            onSelectNode={this.onSelectNode}
+            onCreateNode={this.onCreateNode}
+            onUpdateNode={this.onUpdateNode}
+            onDeleteNode={this.onDeleteNode}
+            onSelectEdge={this.onSelectEdge}
+            onSwapEdge={this.onSwapEdge}
+            onDeleteEdge={this.onDeleteEdge}
+            // readOnly
+          />
+          </div>
+
+      </>
+
     );
   }
 }

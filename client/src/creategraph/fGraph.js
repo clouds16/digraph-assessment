@@ -1,8 +1,11 @@
-import {
-  GraphView 
-} from "react-digraph";
+import React, { Component, useContext ,useState } from "react";
+import ReactDOM from "react-dom";
+import { GraphView } from "react-digraph";
+import sample from "./sample";
+//import AutoSave from '../components/AutoSaveState'
+import SaveWorkflow from "../components/SaveWorkflow";
+import AppContext from '../store/AppContext'
 
-import React, { useState, useRef , useContext} from "react";
 
 
 import {
@@ -13,269 +16,314 @@ import {
   SPECIAL_CHILD_SUBTYPE,
   SPECIAL_EDGE_TYPE,
   SPECIAL_TYPE,
-  SKINNY_TYPE
+  SKINNY_TYPE, NODE_KEY
 } from "./config2";
 
-const sample = {
-  edges: [
-    {
-      handleText: "5",
-      source: "start1",
-      target: "a1",
-      type: SPECIAL_EDGE_TYPE
-    },
-    {
-      handleText: "5",
-      source: "a1",
-      target: "a2",
-      type: SPECIAL_EDGE_TYPE
-    },
-    {
-      handleText: "54",
-      source: "a2",
-      target: "a4",
-      type: EMPTY_EDGE_TYPE
-    },
-    {
-      handleText: "54",
-      source: "a1",
-      target: "a3",
-      type: EMPTY_EDGE_TYPE
-    },
-    {
-      handleText: "54",
-      source: "a3",
-      target: "a4",
-      type: EMPTY_EDGE_TYPE
-    },
-    {
-      handleText: "54",
-      source: "a1",
-      target: "a5",
-      type: EMPTY_EDGE_TYPE
-    },
-    {
-      handleText: "54",
-      source: "a4",
-      target: "a1",
-      type: EMPTY_EDGE_TYPE
-    },
-    {
-      handleText: "54",
-      source: "a1",
-      target: "a6",
-      type: EMPTY_EDGE_TYPE
-    },
-    {
-      handleText: "24",
-      source: "a1",
-      target: "a7",
-      type: EMPTY_EDGE_TYPE
-    }
-  ],
-  nodes: [
-    {
-      id: "start1",
-      title: "Start (0)",
-      type: SPECIAL_TYPE
-    },
-    {
-      id: "a1",
-      title: "Node A (1)",
-      type: SPECIAL_TYPE,
-      x: 258.3976135253906,
-      y: 331.9783248901367
-    },
-    {
-      id: "a2",
-      subtype: SPECIAL_CHILD_SUBTYPE,
-      title: "Node B (2)",
-      type: CUSTOM_EMPTY_TYPE,
-      x: 593.9393920898438,
-      y: 260.6060791015625
-    },
-    {
-      id: "a3",
-      title: "Node C (3)",
-      type: CUSTOM_EMPTY_TYPE,
-      x: 237.5757598876953,
-      y: 61.81818389892578
-    },
-    {
-      id: "a4",
-      title: "Node D (4)",
-      type: CUSTOM_EMPTY_TYPE,
-      x: 600.5757598876953,
-      y: 600.81818389892578
-    },
-    {
-      id: "a5",
-      title: "Node E (5)",
-      type: null,
-      x: 50.5757598876953,
-      y: 500.81818389892578
-    },
-    {
-      id: "a6",
-      title: "Node E (6)",
-      type: SKINNY_TYPE,
-      x: 300,
-      y: 600
-    },
-    {
-      id: "a7",
-      title: "Node F (7)",
-      type: POLY_TYPE,
-      x: 0,
-      y: 300
-    }
-  ]
-};
-const GraphConfig = nodeConfig;
+import "./styles.css";
 
-const NODE_KEY = "id"; // Allows D3 to correctly update DOM
+function FGraph( {graphData}) {
 
-export default function Graph() {
-  // this is the initial value of the state
-  const [nodes, setNodes] = useState(sample.nodes);
-  const [edges, setEdges] = useState(sample.edges);
-  const myRef = useRef("someval?");
+  let myContext = useContext(AppContext)
+  //let currentWorkflow = myContext.CURRENTWORKFLOW;
+  let currentWorkflow = graphData ;
+ {/* } //let graph = myContext.CURRENTWORKFLOW 
 
-  const [selected, setSelected] = useState(null);
+  //let setGraph = myContext.SETCURRENTWORKFLOW
 
-  const NodeTypes = GraphConfig.NodeTypes;
-  const NodeSubtypes = GraphConfig.NodeSubtypes;
-  const EdgeTypes = GraphConfig.EdgeTypes;
+  let [graph, setGraph] = useState({
+    ...currentWorkflow ,
+    //...props.graphData,
+    selected : {}
+  })
 
-  function onCreateEdge(src, tgt) {
-    console.log("edge created");
-    console.log(src);
-    console.log(tgt);
+  let nodes = graph.nodes
+  let edges = graph.edges
 
-    const newEdge = {
-      source: src.id,
-      target: tgt.id,
-      type: "emptyEdge"
-    };
 
-    setEdges((prev) => [...prev, newEdge]);
+  //let [selected, setSelected] = useState({})
+
+  function getNodeIndex(searchNode) {
+    return nodes.findIndex(node => {
+      console.log(node[NODE_KEY] === searchNode[NODE_KEY])
+      return node[NODE_KEY] === searchNode[NODE_KEY];
+
+    });
   }
 
-  function onCreateNode(nodeType) {
-    const title = "New Node";
-    const x = 0;
-    const y = 300;
+  function getEdgeIndex(searchEdge) {
+    return edges.findIndex(edge => {
+      return (
+        edge.source === searchEdge.source && edge.target === searchEdge.target
+      );
+    });
+  }
 
-    var type = nodeType;
-    console.log(nodeType);
+  function getViewNode(nodeKey) {
+    const searchNode = {};
+    searchNode[NODE_KEY] = nodeKey;
+    const i = getNodeIndex(searchNode);
+    return nodes[i];
+  }
+
+  function deleteStartNode(){
+    //const graph = graph;
+    graph.nodes.splice(0, 1);
+    graph.nodes = [...nodes];
+    setGraph({ graph });
+  };
+
+  function onUpdateNode(viewNode){
+    //const graph = graph;
+    const i = getNodeIndex(viewNode);
+
+    graph.nodes[i] = viewNode;
+    setGraph({ graph });
+    console.log(graph)
+  };
+
+  function onSelectNode(viewNode, event){
+    setGraph({ selected: viewNode });
+  };
+
+  function onSelectEdge(viewEdge){
+    setGraph({ selected: viewEdge });
+    console.log(graph.selected)
+  };
+
+  function onCreateNode(type){
+    let p = prompt("Give this processor a name: ")
+
+    console.log("Create new : ", type)
+    //const graph = graph;
+    
 
     const viewNode = {
       id: Date.now(),
-      title,
-      type,
-      x,
-      y
+      title: p,
+      type: type ,
+      x : Math.random()* 200,
+      y : Math.random()*300
     };
 
-    setNodes((prev) => [...prev, viewNode]);
-  }
+    graph.nodes = [...graph.nodes, viewNode];
+    console.log(graph)
+    //setGraph({ graph });
+  };
 
-  function onCreateNodeClick(x, y) {
-    const type = "square";
-    const title = "New Node";
-    const viewNode = {
-      id: Date.now(),
-      title,
-      type,
-      x,
-      y
+
+  function onCreateEdge(sourceViewNode, targetViewNode){
+    //const graph = graph;
+    // This is just an example - any sort of logic
+    // could be used here to determine edge type
+    const type =
+      sourceViewNode.type === SPECIAL_TYPE
+        ? SPECIAL_EDGE_TYPE
+        : EMPTY_EDGE_TYPE;
+
+    const viewEdge = {
+      source: sourceViewNode[NODE_KEY],
+      target: targetViewNode[NODE_KEY],
+      type
     };
-    console.log(viewNode);
-    setNodes((prev) => [...prev, viewNode]);
-  }
 
-  function onUpdateNode(viewNode) {
-    console.log("on update node");
-    console.log(viewNode);
-    onSelectNode(viewNode);
-    var i, index;
-    for (i = 0; i < nodes.length; i++) {
-      if (nodes[i].id === viewNode.id) index = i;
+    // Only add the edge when the source node is not the same as the target
+    if (viewEdge.source !== viewEdge.target) {
+      graph.edges = [...graph.edges, viewEdge];
+      setGraph({
+        graph,
+        selected: viewEdge
+      });
+      //setSelected({selected: viewEdge})
     }
+  };
 
-    var mycopy = nodes;
-    mycopy[index] = viewNode;
-    setNodes(mycopy);
-  }
 
-  function onSelectNode(viewNode, event) {
-    console.log("on select node");
-    console.log(viewNode);
-    console.log(event);
-    console.log(edges);
-    // Deselect events will send Null viewNode
-    setSelected(viewNode);
-  }
 
-  function onDeleteNode(viewNode, nodeId, nodeArr) {
-    console.log("on delete node");
-    console.log(viewNode);
-
+  function onDeleteNode(viewNode, nodeId, nodeArr){
+    //const graph = graph;
     // Delete any connected edges
-    const newEdges = edges.filter((edge, i) => {
-      return edge.source !== viewNode.id && edge.target !== viewNode.id;
+    const newEdges = graph.edges.filter((edge, i) => {
+      return (
+        edge.source !== viewNode[NODE_KEY] && edge.target !== viewNode[NODE_KEY]
+      );
     });
 
-    console.log("new edges");
-    console.log(newEdges);
+    graph.nodes = nodeArr;
+    graph.edges = newEdges;
 
-    // graph.nodes = nodeArr;
+    setGraph({ graph,
+      selected: null });
+    //setSelected({})
+  };  
 
-    var newNodes = nodes.filter((node, i) => {
-      return node.id !== viewNode.id;
-    });
-
-    setEdges(newEdges);
-    setNodes(newNodes);
-  }
-
-  function onSelectEdge(viewEdge) {
-    console.log("on select edge");
-    // Deselect events will send Null viewNode
-    setSelected(viewEdge);
-  }
-
+  // Called when an edge is reattached to a different target.
   function onSwapEdge(sourceViewNode, targetViewNode, viewEdge) {
-    var i, index;
-    console.log(viewEdge);
-    for (i = 0; i < edges.length; i++) {
-      if (
-        edges[i].source === viewEdge.source &&
-        edges[i].target === viewEdge.target
-      )
-        index = i;
-    }
+    //const graph = graph;
+    const i = getEdgeIndex(viewEdge);
+    const edge = JSON.parse(JSON.stringify(graph.edges[i]));
 
-    const edge = {
-      source: sourceViewNode.id,
-      target: targetViewNode.id,
-      handleText: viewEdge.handleText,
-      type: viewEdge.type
-    };
-
-    //edge.source = sourceViewNode;
-    //edge.target = targetViewNode;
-    console.log(sourceViewNode);
-    console.log(targetViewNode);
-    var mycopy = edges;
-
-    mycopy[index] = edge;
-    console.log(index);
-
+    edge.source = sourceViewNode[NODE_KEY];
+    edge.target = targetViewNode[NODE_KEY];
+    graph.edges[i] = edge;
     // reassign the array reference if you want the graph to re-render a swapped edge
+    graph.edges = [...graph.edges];
 
-    setEdges(mycopy);
+    setGraph({
+      graph,
+      selected: edge
+    });
+    //setSelected({})
+  };
+
+  function onDeleteEdge(viewEdge, edges) {
+    //const { graph } = this.state;
+    graph.edges = edges;
+    setGraph({ graph, selected: null  });
+    //setSelected({selected: null})
+  };
+
+*/}
+
+
+const [nodes, setNodes] = useState(currentWorkflow.nodes);
+const [edges, setEdges] = useState(currentWorkflow.edges);
+const [selected, setSelected] = useState(null);
+let graph = {
+  nodes,
+  edges,
+  name : ""
+}
+
+function onCreateEdge(src, tgt) {
+  console.log("edge created");
+  console.log(src);
+  console.log(tgt);
+
+  const newEdge = {
+    source: src.id,
+    target: tgt.id,
+    type: "emptyEdge"
+  };
+
+  setEdges((prev) => [...prev, newEdge]);
+}
+
+function onCreateNode(nodeType) {
+  const title = "New Node";
+  const x = 0;
+  const y = 300;
+
+
+  var type = nodeType;
+  console.log(nodeType);
+
+  const viewNode = {
+    id: Date.now(),
+    title,
+    type,
+    x,
+    y
+  };
+
+  setNodes((prev) => [...prev, viewNode]);
+}
+
+function onCreateNodeClick(x, y) {
+  const type = "square";
+  const title = "New Node";
+  const viewNode = {
+    id: Date.now(),
+    title,
+    type,
+    x,
+    y
+  };
+  console.log(viewNode);
+  setNodes((prev) => [...prev, viewNode]);
+}
+
+function onUpdateNode(viewNode) {
+  console.log("on update node");
+  console.log(viewNode);
+  onSelectNode(viewNode);
+  var i, index;
+  for (i = 0; i < nodes.length; i++) {
+    if (nodes[i].id === viewNode.id) index = i;
   }
+
+  var mycopy = nodes;
+  mycopy[index] = viewNode;
+  setNodes(mycopy);
+}
+
+function onSelectNode(viewNode, event) {
+  console.log("on select node");
+  console.log(viewNode);
+  console.log(event);
+  console.log(edges);
+  // Deselect events will send Null viewNode
+  setSelected(viewNode);
+}
+
+function onDeleteNode(viewNode, nodeId, nodeArr) {
+  console.log("on delete node");
+  console.log(viewNode);
+
+  // Delete any connected edges
+  const newEdges = edges.filter((edge, i) => {
+    return edge.source !== viewNode.id && edge.target !== viewNode.id;
+  });
+
+  console.log("new edges");
+  console.log(newEdges);
+
+  // graph.nodes = nodeArr;
+
+  var newNodes = nodes.filter((node, i) => {
+    return node.id !== viewNode.id;
+  });
+
+  setEdges(newEdges);
+  setNodes(newNodes);
+}
+
+function onSelectEdge(viewEdge) {
+  console.log("on select edge");
+  // Deselect events will send Null viewNode
+  setSelected(viewEdge);
+}
+
+function onSwapEdge(sourceViewNode, targetViewNode, viewEdge) {
+  var i, index;
+  console.log(viewEdge);
+  for (i = 0; i < edges.length; i++) {
+    if (
+      edges[i].source === viewEdge.source &&
+      edges[i].target === viewEdge.target
+    )
+      index = i;
+  }
+
+  const edge = {
+    source: sourceViewNode.id,
+    target: targetViewNode.id,
+    handleText: viewEdge.handleText,
+    type: viewEdge.type
+  };
+
+  //edge.source = sourceViewNode;
+  //edge.target = targetViewNode;
+  console.log(sourceViewNode);
+  console.log(targetViewNode);
+  var mycopy = edges;
+
+  mycopy[index] = edge;
+  console.log(index);
+
+  // reassign the array reference if you want the graph to re-render a swapped edge
+
+  setEdges(mycopy);
+}
 
   function onDeleteEdge(e, ed) {
     console.log("on delete edge");
@@ -292,37 +340,78 @@ export default function Graph() {
     // implement find index by id first
   }
 
-  return (
-      <>
-        <button onClick={onCreateNode(EMPTY_EDGE_TYPE)} > Rectangle </button>
-        <button onClick={onCreateNode(EMPTY_EDGE_TYPE)}> Circle </button>
-        <button onClick={onCreateNode(EMPTY_EDGE_TYPE)}> Square </button>
-        <button onClick={onCreateNode(POLY_TYPE)}> Poly </button>
-        <button onClick={onCreateEdge} > Create Edge </button>
-            <GraphView
-              ref={myRef}
-              nodeKey={NODE_KEY}
-              nodes={nodes}
-              edges={edges}
-              selected={selected}
-              nodeTypes={NodeTypes}
-              nodeSubtypes={NodeSubtypes}
-              edgeTypes={EdgeTypes}
-              allowMultiselect={true}
-              onSelect={this.onSelect}
-              onCreateNode={(x, y) => onCreateNodeClick(x, y)}
-              onUpdateNode={(node) => onUpdateNode(node)}
-              onDeleteNode={(viewNode, nodeId, nodeArr) =>
-                onDeleteNode(viewNode, nodeId, nodeArr)
-              }
-              onCreateEdge={(src, tgt) => onCreateEdge(src, tgt)}
-              onSwapEdge={(src, tgt, view) => onSwapEdge(src, tgt, view)}
-              onDeleteEdge={(e, edges) => onDeleteEdge(e, edges)}
-              onSelectNode={(node, e) => onSelectNode(node, e)}
-              onSelectEdge={(edge) => onSelectEdge(edge)}
-              //renderNode={() => renderNode()}
-            />
-        </>
+  
+  function onCreateEdge(edgeType) {
+    const title = "New Node";
+    const x = 0;
+    const y = 300;
+  
+  
+    var type = edgeType;
+    console.log(edgeType);
+  
+    const viewNode = {
+      id: Date.now(),
+      title,
+      type,
+      x,
+      y
+    };
+  
+    setNodes((prev) => [...prev, viewNode]);
+  }
 
-  );
+
+
+
+  return (
+    <div id="graph" className="w-4/6 h-4/6">
+
+    <button className='m-2 p-2 bg-white border-2 border-black' onClick={ () => onCreateNode(POLY_TYPE)} >  Hexagon  </button>
+    <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> onCreateNode(SKINNY_TYPE)}> Square </button>
+    <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> onCreateNode(SPECIAL_TYPE)}> Diamond </button> 
+    <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> onCreateNode(EMPTY_EDGE_TYPE)}> Rectangle  </button>
+    <SaveWorkflow data={graph} />
+    
+    <button onClick={ ()=> console.log(graph)} > Check current state </button>
+    <button onClick={ ()=> console.log(myContext.CURRENTWORKFLOW)} >... global state? </button>
+    {/* <button className='m-2 p-2 bg-white border-2 border-black' onClick={ () => onCreateEdge(this.graph.nodes[0], this.graph.nodes[1])} >  Edge  </button> */}
+    {/* <button className='m-2 p-2 bg-white border-2 border-black' onClick={ ()=> saveWorkflow } >  Save  </button>  */}
+    {/* <AutoSave data={graph} /> */}
+    {/* <SaveWorkflow data={graph} /> */}
+
+    <GraphView 
+      showGraphControls={true}
+      gridSize="100rem"
+      gridDotSize={1}
+      renderNodeText={false}
+      ref= {React.useRef("GraphView")}
+      nodeKey={NODE_KEY}
+      nodes={nodes}
+      edges={edges}
+      selected={selected}
+      nodeTypes={nodeConfig.NodeTypes}
+      nodeSubtypes={nodeConfig.NodeSubtypes}
+      edgeTypes={nodeConfig.EdgeTypes}
+      onSelectNode={onSelectNode}
+      onCreateNode={ onCreateNode}
+      onCreateEdge={ onCreateEdge}
+      onUpdateNode={onUpdateNode}
+      onDeleteNode={onDeleteNode}
+      onSelectEdge={onSelectEdge}
+      onSwapEdge={onSwapEdge}
+      onDeleteEdge={onDeleteEdge}
+      // readOnly
+    />
+  </div>
+  )
+
 }
+
+
+
+
+
+export default FGraph;
+
+

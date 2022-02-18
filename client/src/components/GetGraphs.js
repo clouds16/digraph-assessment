@@ -13,9 +13,7 @@ function GetGraphs(){
         } ).catch( (e)=> {
             console.log("Could not log data")
         } )
-   
     }
-
 
     useEffect( ()=> {
         newData()
