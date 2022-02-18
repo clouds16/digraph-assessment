@@ -24,7 +24,7 @@ function SaveWorkflow({data} ){
 
     return (
         <>
-            <button className="m-2 p-2 border-black border-1 bg-white" onClick={createNew} > Save Workflow </button>
+            <button className="m-2 p-2 border-black border-1 bg-white hover:bg-green-300" onClick={createNew} > Save Workflow </button>
         </>
     )
 }

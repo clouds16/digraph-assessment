@@ -26,5 +26,5 @@ export default {
         type: SPECIAL_EDGE_TYPE
       },
     ],
-    selected : {}
+    //selected : {}
     }
