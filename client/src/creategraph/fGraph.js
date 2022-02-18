@@ -240,7 +240,7 @@ function onSwapEdge(sourceViewNode, targetViewNode, viewEdge) {
 
   return (
     <div id="graph" className="w-4/6 h-4/6">
-    <h1> {workflow.name} </h1>
+    <h1 className=" text-2xl "> WORKFLOW TITLE: {workflow.name? workflow.name : "NO WORKFLOW TITLE"} </h1>
     <button className='m-2 p-2 bg-white border-2 border-black hover:bg-yellow-400' onClick={ () => onCreateNode(POLY_TYPE)} >  Hexagon  </button>
     <button className='m-2 p-2 bg-white border-2 border-black hover:bg-yellow-400' onClick={ ()=> onCreateNode(SKINNY_TYPE)}> Rectangle </button>
     <button className='m-2 p-2 bg-white border-2 border-black hover:bg-yellow-400' onClick={ ()=> onCreateNode(SPECIAL_TYPE)}> Diamond </button> 

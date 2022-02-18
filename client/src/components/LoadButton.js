@@ -14,12 +14,9 @@ function LoadWorkflow( props ){
 
     function LoadButtonPressed(){
         console.log("props data: ",  props.data)
-
         myContext.SETCURRENTWORKFLOW(props.data)
-
         setNodes(props.data.nodes)
         setEdges(props.data.edges)
-
 
     }   
 

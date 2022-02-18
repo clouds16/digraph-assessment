@@ -1,45 +1,29 @@
 # Studylog Web Take-Home Assessment
+# HECTOR ALVAREZ
 
-## Problem Statement
-1. Users want the ability to create a custom data processor using a drag-and-drop style interface.
-1. Users want to be able to create, read, update, and delete these user-created "workflows".
 
-## Requirements
-1. Backend API uses a well established open-source framework. (Express, Next.js, etc)
-1. User interface should be written in React.js
-1. The selected graph library for this project is [react-digraph](https://www.npmjs.com/package/react-digraph)
+CLICK ON CREATE WORKFLOW TO START A FRESH WORKFLOW WITH ONLY ONE STARTING NODE.
 
-## Specifications
+CLICKING ON A SHAPE BUTTON (HEX, RECTANGLE, DIAMOND) WILL GENERATE A PROCESSOR IN THE SHAPE CHOSEN.
+THIS WILL PROMPT THE USER TO GIVE THE PROCESSOR A NAME, AND WILL AUTOMATICALL POSITION IT ON THE CANVAS
 
-### Frontend challenge
-* User interface should allow users to create a new "workflow".
-* User interface should allow users to drag and drop "processors" onto a canvas.
-* User interface should allow users to assign a name to a "processor" on the canvas.
-* User interface should allow users to link "processors" by dragging an arrow between them.
+THE USER CAN THEN REPOSITION THE SHAPE ANYWHERE ON THE CANVAS
 
-### Full stack challenge
-* User interface should allow users to list existing "workflows".
-* User interface should allow users to open an existing "workflow".
-* User interface should allow users to update a "workflow".
-* User interface should allow users to delete a "workflow".
+TO GENERATE AN EDGE, SELECT A PROCESSOR BY CLICKING ON IT. THIS WILL UPDATE THE LAST 
+SELECTED PROCESSOR. THE USER CAN THEN CLICK ON CREATE EDGE, AND AN EDGE WILL BE GENERATED FROM THE 
+LAST SELECTED PROCESSOR AND THE STARTING NODE. THE PROGRAM WILL PROMPT THE USER TO ADD A TAG/NAME
+TO THE EDGE
 
-### Algorithm challenge
-* If a link line is part of a circular reference, change its color to red.
+WHEN THE WORKFLOW IS COMPLETE, CLICK ON THE SAVE BUTTON TO GIVE THE WORKFLOW A NAME
+THIS WILL SAVE THE WORKFLOW FOR FUTURE USE.
 
-## What we're looking for
+THE NEWLY CREATED WORKFLOW WILL BE ADDED TO THE WORKFLOW STACK.
+THIS STACK ONLY SHOWS THE WORKFLOWS BY NAME. THE USER CAN SELECT PREVIOUS STACKS BY CLICKING 'LOAD' BUTTON
 
-Please work on this project as your comfort and schedule permits.
-We ask that you spend ~ 3 hours, but understand if you spend more or less.
+ADDITIONALLY, THE USER CAN DELETE PREVIOUS WORKFLOWS BY CLICKING THE DELETE BUTTON. 
 
-* Architecture. (is this application structurally sound?)
-* Best practices. (are industry best practices observed?)
-* Experience. (does this reflect a strong understanding of the language/concepts?)
-* Elegance. (is this concept as simple as it could/should be?)
-* Readability. (is the code easy to reason about?)
-* Cleanliness. (how does this codebase ensure appropriate styles? conventions?)
-* Testability. (are tests functional? do they focus on the right things?)
-* Portability. (does the code have meaningful abstractions, componentization?)
+ALTHOUGH THE PROGRAM HAS AN UPDATE BUTTON, IT IS NOT FUNCTIONAL (YET)
+BUT THE USER CAN LOAD THE SELECTED WORKFLOW, ADD NEW DATA POINTS TO IT, AND SAVE IT AS A NEW WORKFLOW.
 
-## Submission
-* When you have completed the challenge, please send an email letting us know.
-* Please update this `README.md` file with instructions for running your application.
+
+

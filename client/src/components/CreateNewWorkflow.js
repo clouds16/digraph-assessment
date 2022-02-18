@@ -6,17 +6,12 @@ import sample from '../creategraph/sample'
 
 function CreaetNew( props ){
 
-
-
     const myContext =  useContext(AppContext);
     const currentWorkflow = myContext.CURRENTWORKFLOW ;
     let nodes = myContext.NODES;
     let setNodes = myContext.SETNODES;
     let edges = myContext.EDGES ;
     let setEdges = myContext.SETEDGES;
-    
-    
-
 
     function createNew(){
         myContext.SETCURRENTWORKFLOW(defaultdata) 
@@ -27,7 +22,7 @@ function CreaetNew( props ){
 
     return (
         <>
-            <button className="m-2 p-2 border-black border-1 bg-white" onClick={createNew} > Create New Workflow </button>
+            <button className="m-2 p-2 border-black border-1 bg-green-300 hover:bg-green-300 hover:scale-125" onClick={createNew} > Create New Workflow </button>
         </>
     )
 }

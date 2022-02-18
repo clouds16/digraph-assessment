@@ -30,7 +30,7 @@ function GetGraphs(){
             {   data? 
                 data.map((item) => {
                     return (
-                        <div className=" bg-orange-300 p-3 m-1">
+                        <div className=" bg-sky-300 p-3 m-5">
                             <h1> {item.name} </h1>
                             
                             <LoadButton data={item}/>

@@ -1,7 +1,7 @@
 import React, { Component, useContext } from "react";
 import ReactDOM from "react-dom";
 import { GraphView } from "react-digraph";
-import sample from "./sample";
+import sample from "../creategraph/sample";
 //import AutoSave from '../components/AutoSaveState'
 import SaveWorkflow from "../components/SaveWorkflow";
 
@@ -14,7 +14,7 @@ import {
   SPECIAL_EDGE_TYPE,
   SPECIAL_TYPE,
   SKINNY_TYPE, NODE_KEY
-} from "./config2";
+} from "../creategraph/config2";
 
 import "./styles.css";
 
