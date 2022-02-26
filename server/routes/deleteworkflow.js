@@ -11,7 +11,7 @@ router.delete('/delete', async function(req, res, next) {
 
   try {
     await Workflow.findByIdAndRemove({ _id : data._id})
-    req.send(data)
+    res.send(data)
 
   } catch (e) {
     res.send(e)
