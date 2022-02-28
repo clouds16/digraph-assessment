@@ -1,2 +1,2 @@
-web: cd ./server && node /bin/www
+web: node ./server/bin/www
 
