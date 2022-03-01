@@ -8,7 +8,7 @@ function GetGraphs(){
     let [data , setData] = useState([])
 
     function newData(){
-        Axios.get('http://localhost:3100/read').then( (response)=> {
+        Axios.get(process.env.URL +'/read' || process.env.LOCAL + '/read').then( (response)=> {
             setData(...data , response.data )
         } ).catch( (e)=> {
             console.log("Could not log data")

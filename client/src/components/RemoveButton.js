@@ -6,7 +6,7 @@ function RemoveButton( {data} ) {
     function onButtonPress(){
         try {
             alert("Are you sure you want to delete this data?")
-            Axios.delete('http://localhost:3100/delete' , {
+            Axios.delete( process.env.URL +'/delete' || process.env.LOCAL + '/delete', {
                 data: {
                     _id : data._id
                   }

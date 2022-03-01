@@ -4,11 +4,11 @@ import AppContext from '../store/AppContext'
 
 function UpdateButton( { data} ){
     const myContext =  useContext(AppContext);
-
+    let baseURL = process.env.URL;
     function onButtonPress(){
         try {
             alert("About to update existing data")
-            Axios.put('http://localhost:3100/update' , {data})
+            Axios.put(baseURL+ '/update' || process.env.LOCAL , {data})
             console.log("data updated")
         }
         catch {

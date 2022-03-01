@@ -5,7 +5,8 @@ import Axios from  'axios'
 function SaveWorkflow({data} ){
 
     let myContext = useContext(AppContext);
-    
+    let baseURL = process.env.URL;
+
     function saveState(){
 
         let name = prompt("Give this workflow a name : ")
@@ -15,7 +16,7 @@ function SaveWorkflow({data} ){
     function createNew(){
         saveState()
         try{
-            Axios.post('http://localhost:3100/create', data)
+            Axios.post( baseURL + '/create' || process.env.LOCAL + '/create', data)
         } catch (e){
             alert("Could not save data")
         }
